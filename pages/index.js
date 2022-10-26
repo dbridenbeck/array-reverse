@@ -113,7 +113,7 @@ export default function Home() {
         <thead>
           <tr>
             <th></th>
-            <th>Proof of recursion</th>
+            <th>Proof of reverse</th>
             <th>{"Performance (averaged over 5 runs)"}</th>
             <th>Method detail</th>
           </tr>
