@@ -62,96 +62,133 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <form>
-        <label htmlFor="array0">First item</label>
-        <select id="array0" name="array0" onChange={(e) => handleChange(e, 0)}>
-          <option value="🕴️">🕴️</option>
-          <option value="🚀">🚀</option>
-          <option value="🫡">🫡</option>
-          <option value="👻">👻</option>
-          <option value="😭">😭</option>
-          <option value="🥺">🥺</option>
-          <option value="🔥">🔥</option>
-          <option value="🎃">🎃</option>
-          <option value="💀">💀</option>
-        </select>
-        <label htmlFor="array1">Second item</label>
-        <select id="array1" name="array1" onChange={(e) => handleChange(e, 1)}>
-          <option value="🕴️">🕴️</option>
-          <option value="🚀">🚀</option>
-          <option value="🫡">🫡</option>
-          <option value="👻">👻</option>
-          <option value="😭">😭</option>
-          <option value="🥺">🥺</option>
-          <option value="🔥">🔥</option>
-          <option value="🎃">🎃</option>
-          <option value="💀">💀</option>
-        </select>
-        <label htmlFor="array2">Third item</label>
-        <select id="array2" name="array2" onChange={(e) => handleChange(e, 2)}>
-          <option value="🕴️">🕴️</option>
-          <option value="🚀">🚀</option>
-          <option value="🫡">🫡</option>
-          <option value="👻">👻</option>
-          <option value="😭">😭</option>
-          <option value="🥺">🥺</option>
-          <option value="🔥">🔥</option>
-          <option value="🎃">🎃</option>
-          <option value="💀">💀</option>
-        </select>
-        <label htmlFor="array3">First item</label>
-        <select id="array3" name="array3" onChange={(e) => handleChange(e, 3)}>
-          <option value="🕴️">🕴️</option>
-          <option value="🚀">🚀</option>
-          <option value="🫡">🫡</option>
-          <option value="👻">👻</option>
-          <option value="😭">😭</option>
-          <option value="🥺">🥺</option>
-          <option value="🔥">🔥</option>
-          <option value="🎃">🎃</option>
-          <option value="💀">💀</option>
-        </select>
-        <label htmlFor="array4">Fourth item</label>
-        <select id="array4" name="array4" onChange={(e) => handleChange(e, 4)}>
-          <option value="🕴️">🕴️</option>
-          <option value="🚀">🚀</option>
-          <option value="🫡">🫡</option>
-          <option value="👻">👻</option>
-          <option value="😭">😭</option>
-          <option value="🥺">🥺</option>
-          <option value="🔥">🔥</option>
-          <option value="🎃">🎃</option>
-          <option value="💀">💀</option>
-        </select>
-      </form>
-      <h2>Your Array Values are:</h2>
-      <div>{arrayInput}</div>
-      <button
-        onClick={() =>
-          capturePerformance(reverseUsingBuiltin, setBuiltinPerformance)
-        }
+    <div
+      style={{
+        padding: "20px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          marginBottom: "50px",
+          flexDirection: "column",
+          alignItems: "center",
+          height: "100px",
+        }}
       >
-        {"Reverse the array using array.reverse()"}
-      </button>
-      <p>performance for builtin reverse was: {builtinPerformance}</p>
-      {builtinReverse}
-      <button
-        onClick={() => capturePerformance(reverseUsingFor, setForPerformance)}
-      >
-        {"Reverse the array using for loop"}
-      </button>
-      <p>performance for for reverse was: {forPerformance}</p>
-      {forReverse}
-      <button
-        onClick={() =>
-          capturePerformance(reverseUsingRecursion, setRecursionPerformance)
-        }
-      >
-        {"Reverse the array using recursion"}
-      </button>
-      <p>performance for recursion reverse was: {recursionPerformance}</p>
-      {recursionReverse}
+        <form
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100px",
+          }}
+        >
+          {Array.from([0, 1, 2, 3, 4]).map((_, index) => (
+            <div key={_}>
+              <label htmlFor={`array${index}`}>Item number {index + 1}</label>
+              <select
+                id={`array${index}`}
+                name={`array${index}`}
+                onChange={(e) => handleChange(e, index)}
+              >
+                <option value="🕴️">🕴️</option>
+                <option value="🚀">🚀</option>
+                <option value="🫡">🫡</option>
+                <option value="👻">👻</option>
+                <option value="😭">😭</option>
+                <option value="🥺">🥺</option>
+                <option value="🔥">🔥</option>
+                <option value="🎃">🎃</option>
+                <option value="💀">💀</option>
+              </select>
+            </div>
+          ))}
+        </form>
+        <h2>Your Selected Array Values Are:</h2>
+        <div>{arrayInput}</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Proof of recursion</th>
+            <th>{"Performance (averaged over 5 runs)"}</th>
+            <th>Method detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <button
+                onClick={() =>
+                  capturePerformance(reverseUsingBuiltin, setBuiltinPerformance)
+                }
+              >
+                {"Reverse the array using array.reverse()"}
+              </button>
+            </td>
+            <td>{builtinReverse}</td>
+            <td>{builtinPerformance}</td>
+            <td>
+              <pre>
+                <code>{"arrayInput.slice().reverse()"}</code>
+              </pre>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                onClick={() =>
+                  capturePerformance(reverseUsingFor, setForPerformance)
+                }
+              >
+                {"Reverse the array using for loop"}
+              </button>
+            </td>
+            <td>{forReverse}</td>
+            <td>{forPerformance}</td>
+            <td>
+              <pre>
+                <code>{`const reversedArray = [];
+    for (let i = arrayInput.length; i >= 0; i--) {
+      reversedArray.push(arrayInput[i]);
+    }`}</code>
+              </pre>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                onClick={() =>
+                  capturePerformance(
+                    reverseUsingRecursion,
+                    setRecursionPerformance
+                  )
+                }
+              >
+                {"Reverse the array using recursion"}
+              </button>
+            </td>
+            <td>{recursionReverse}</td>
+            <td>{recursionPerformance}</td>
+            <td>
+              <pre>
+                <code>{`const reversedArray = [];
+    const moveValue = (array, index) => {
+      reversedArray.push(array[index]);
+      if (index === -1) {
+        return reversedArray;
+      }
+      return moveValue(array, index - 1);
+    };
+    moveValue(arrayInput, arrayInput.length);`}</code>
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
